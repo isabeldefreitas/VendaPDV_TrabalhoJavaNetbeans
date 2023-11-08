@@ -6,13 +6,27 @@ package vendapdv;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Component;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author isabe
  */
 public class JCliente extends javax.swing.JDialog {
 
- 
+ private JModeloTabelaPessoa modeloPessoa;
     
     /**
      * Creates new form JCliente
@@ -122,21 +136,37 @@ public class JCliente extends javax.swing.JDialog {
     
     private void buIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buIncluirActionPerformed
 
-  
+  Pessoa pessoa = new Pessoa();
+        if (JCadastroCliente.executar(JOperacaoCadastro.incluir, pessoa)){
+        modeloPessoa.incluirPessoa(pessoa);
+}
     }//GEN-LAST:event_buIncluirActionPerformed
 
     private void buExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buExcluirActionPerformed
-       
+       int indice = tabPessoa.getSelectedRow();
+        if (indice >= 0){
+        modeloPessoa.excluirPessoa(indice);
+        }
     }//GEN-LAST:event_buExcluirActionPerformed
 
     private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
 
-        
+        int indice = tabPessoa.getSelectedRow();
+        if (indice >= 0){
+        Pessoa pessoa = modeloPessoa.obterPessoa(indice);
+        JCadastroCliente.executar(JOperacaoCadastro.consultar, pessoa);
+        }
     }//GEN-LAST:event_SelecionarActionPerformed
 
     private void buAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buAlterarActionPerformed
 
-       
+       int indice = tabPessoa.getSelectedRow();
+        if (indice >= 0){
+        Pessoa pessoa = modeloPessoa.obterPessoa(indice);
+        if (JAtualizaCliente.executar(JOperacaoCadastro.alterar, pessoa)){
+        modeloPessoa.atualizarPessoa(indice, pessoa);
+        }
+        }
     }//GEN-LAST:event_buAlterarActionPerformed
 
     /**
