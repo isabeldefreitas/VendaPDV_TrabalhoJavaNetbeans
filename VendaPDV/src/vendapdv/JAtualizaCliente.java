@@ -13,26 +13,63 @@ import javax.swing.JFrame;
  */
 public class JAtualizaCliente extends javax.swing.JDialog {
 
-     private Pessoa clienteAtualizado;
-     boolean janelaFechadaComSucesso;
+private JOperacaoCadastro joperacaoCadastro;
+private Pessoa pessoa;
+private boolean confirmado;
 
-    /**
-     * Creates new form JAtualizaCliente
-     */
-    public JAtualizaCliente(java.awt.Frame parent, boolean modal, Pessoa clienteExistente) {
-    super(parent, modal);
-    initComponents();
-    this.clienteAtualizado = new Pessoa((Connection) clienteExistente);
+
+public static boolean executar (JOperacaoCadastro joperacaoCadastro,
+
+Pessoa pessoa){
+
+JAtualizaCliente jatualizacliente = new JAtualizaCliente(null, joperacaoCadastro, pessoa);
+jatualizacliente.setLocationRelativeTo(null);
+jatualizacliente.setVisible(true);
+return jatualizacliente.operacaoConfirmada();//146
 }
-
-    private JAtualizaCliente(JFrame jFrame, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    /**
+     * Creates new form JanelaPessoa
+     */
+    public JAtualizaCliente(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
     }
 
-    public boolean exibir(Pessoa clienteSelecionado) {
-        this.setVisible(true); // Exibe a janela de atualização
-        return janelaFechadaComSucesso; // Substitua janelaFechadaComSucesso pela lógica adequada
-    }
+public JAtualizaCliente (java.awt.Frame parent,
+
+JOperacaoCadastro joperacaoCadastro,
+Pessoa pessoa) {
+super(parent, true );//Abre como modal
+
+        confirmado = false;
+        this.joperacaoCadastro = joperacaoCadastro;
+        this.pessoa = pessoa;
+        initComponents();
+        if (joperacaoCadastro == JOperacaoCadastro.alterar ||
+        joperacaoCadastro == JOperacaoCadastro.consultar){
+        edNome.setText(pessoa.obterNome());
+        edTelefone.setText(pessoa.obterTelefone());
+        edEmail.setText(pessoa.obterEmail());
+        edRua.setText(pessoa.obterRua());
+        edCidade.setText(pessoa.obterCidade());
+        edEstado.setSelectedItem(pessoa.obterEstado());
+        edCep.setText(pessoa.obterCep());
+        }
+        buCancelar.setVisible(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edNome.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edTelefone.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edEmail.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edRua.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edCidade.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edEstado.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        edCep.setEnabled(joperacaoCadastro != JOperacaoCadastro.consultar);
+        }
+
+    public boolean operacaoConfirmada(){
+return confirmado;
+}
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,33 +282,49 @@ public class JAtualizaCliente extends javax.swing.JDialog {
     private void buOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKActionPerformed
 
 
+        if (joperacaoCadastro != JOperacaoCadastro.consultar){
+
+        pessoa.atualizarNome(edNome.getText());
+        pessoa.atualizarTelefone(edTelefone.getText());
+        pessoa.atualizarEmail(edEmail.getText());
+        pessoa.atualizarRua(edRua.getText());
+        pessoa.atualizarCidade(edCidade.getText());
+
+
+        String estadoSelecionado = (String) edEstado.getSelectedItem();
+        pessoa.atualizarEstado(estadoSelecionado);
+        pessoa.atualizarCep(edCep.getText());
+
+        confirmado = true;
+
+}
+        
         Pessoa pessoa = new Pessoa();
         pessoa.atualizarNome(edNome.getText());
         pessoa.atualizarTelefone(edTelefone.getText());
         pessoa.atualizarEmail(edEmail.getText());
         pessoa.atualizarRua(edRua.getText());
         pessoa.atualizarCidade(edCidade.getText());
+
+
         String estadoSelecionado = (String) edEstado.getSelectedItem();
         pessoa.atualizarEstado(estadoSelecionado);
         pessoa.atualizarCep(edCep.getText());
 
-        if (pessoa.atualizarNoBancoDeDados()) {
-                // A atualização no banco de dados foi bem-sucedida
-                // Você pode adicionar um código para exibir uma mensagem de sucesso aqui
-            } else {
-                // A atualização no banco de dados falhou
-                // Você pode adicionar um código para exibir uma mensagem de erro aqui
-            }
-
-            edTelefone.setText("");
-            edTelefone.setText("");
-            edEmail.setText("");
-            edRua.setText("");
-            // Limpe outros campos conforme necessário
-
-            janelaFechadaComSucesso = true; // Defina isso como true se a atualização for bem-sucedida
-        this.dispose();  // Feche a janela após a atualização
+        pessoa.salvar();
         
+
+        edTelefone.setText("");
+        edTelefone.setText("");
+        edEmail.setText("");
+        edRua.setText("");
+        edCidade.setText("");
+        edEstado.setSelectedItem("");
+        edCep.setText("");
+        
+        
+        
+        dispose(); // TODO add your handling code here:
 
     }//GEN-LAST:event_buOKActionPerformed
 
