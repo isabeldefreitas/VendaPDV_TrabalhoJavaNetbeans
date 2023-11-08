@@ -24,10 +24,27 @@ public class JCadastroCliente extends javax.swing.JDialog {
     return jcadastroCliente.operacaoConfirmada();//146
 }
     
-    public JCadastroCliente (java.awt.Frame parent,JOperacaoCadastro joperacaoCadastro,Pessoa pessoa) {
+
+    public JCadastroCliente  (java.awt.Frame parent,JOperacaoCadastro joperacaoCadastro, Pessoa pessoa) {
 super(parent, true );//Abre como modal
 
-    }
+        confirmado = false;
+        this.joperacaoCadastro = joperacaoCadastro;
+        this.pessoa = pessoa;
+        initComponents();
+        
+        if (joperacaoCadastro == JOperacaoCadastro.incluir ){
+        edNome.setText(pessoa.obterNome());
+        edTelefone.setText(pessoa.obterTelefone());
+        edEmail.setText(pessoa.obterEmail());
+        edRua.setText(pessoa.obterRua());
+        edCidade.setText(pessoa.obterCidade());
+        edEstado.setSelectedItem(pessoa.obterEstado());
+        edCep.setText(pessoa.obterCep());
+        }
+        
+     
+        }
 
     public boolean operacaoConfirmada(){
 return confirmado;
