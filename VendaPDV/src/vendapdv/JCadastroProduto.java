@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package vendapdv;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -134,17 +136,17 @@ public class JCadastroProduto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,52 +157,44 @@ public class JCadastroProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_edQuantidadeprodActionPerformed
 
     private void buOKprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKprodActionPerformed
+                                           
+    String nome = edNomeprod.getText();
+    String precoStr = edPrecoprod.getText();
+    String quantidadeStr = edQuantidadeprod.getText();
 
-        if (operacaoCadastro != OperacaoCadastro.consultar){
+    try {
+        double preco = Double.parseDouble(precoStr);
+        int quantidade = Integer.parseInt(quantidadeStr);
 
-            pessoa.atualizarNome(edNomeprod.getText());
-            pessoa.atualizarTelefone(edTelefone.getText());
-            pessoa.atualizarEmail(edPrecoprod.getText());
-            pessoa.atualizarLogradouro(edQuantidadeprod.getText());
-            pessoa.atualizarNumero(edNumero.getText());
-            pessoa.atualizarComplemento(edComplemento.getText());
-            pessoa.atualizarBairro(edBairro.getText());
-            pessoa.atualizarCidade(edCidade.getText());
+        Produto produto = new Produto();
+        produto.atualizarNome(nome);
+        produto.atualizarPreco(preco);
+        produto.atualizarQuantidade(quantidade);
 
-            String estadoSelecionado = (String) edEstado.getSelectedItem();
-            pessoa.atualizarEstado(estadoSelecionado);
-            pessoa.atualizarCep(edCep.getText());
+        // Certifique-se de ter uma conexão válida com o banco de dados
+        Connection connection = DatabaseConnection.obterConexao(); 
 
-            confirmado = true;
-
+        if (connection != null) {
+            produto.salvar(connection);
+            // Feche a conexão com o banco de dados após o uso
+            connection.close();
+            System.out.println("Produto salvo com sucesso!");
+        } else {
+            System.err.println("Falha ao obter conexão com o banco de dados.");
         }
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.atualizarNome(edNomeprod.getText());
-        pessoa.atualizarTelefone(edTelefone.getText());
-        pessoa.atualizarEmail(edPrecoprod.getText());
-        pessoa.atualizarLogradouro(edQuantidadeprod.getText());
-        pessoa.atualizarNumero(edNumero.getText());
-        pessoa.atualizarComplemento(edComplemento.getText());
-        pessoa.atualizarBairro(edBairro.getText());
-        pessoa.atualizarCidade(edCidade.getText());
-
-        String estadoSelecionado = (String) edEstado.getSelectedItem();
-        pessoa.atualizarEstado(estadoSelecionado);
-        pessoa.atualizarCep(edCep.getText());
-
-        pessoa.salvar();
-
-        edTelefone.setText("");
-        edTelefone.setText("");
+        // Limpe os campos de entrada após salvar
+        edNomeprod.setText("");
         edPrecoprod.setText("");
         edQuantidadeprod.setText("");
-        edNumero.setText("");
-        edComplemento.setText("");
-        edBairro.setText("");
-        edCidade.setText("");
-        edEstado.setSelectedItem("");
-        edCep.setText("");
+
+        dispose(); // Feche a janela de cadastro de produtos
+    } catch (NumberFormatException e) {
+        System.err.println("Erro ao converter preço ou quantidade para números.");
+    } catch (SQLException e) {
+        System.err.println("Erro ao salvar dados do produto: " + e.getMessage());
+    }
+     
 
         dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_buOKprodActionPerformed

@@ -4,18 +4,25 @@
  */
 package vendapdv;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author isabe
  */
 public class JCliente extends javax.swing.JDialog {
 
+ 
+    
     /**
      * Creates new form JCliente
      */
     public JCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        modeloPessoa = new JModeloTabelaPessoa(new ArrayList<>());
+        tabPessoa.setModel(modeloPessoa);
+          
     }
 
     /**
@@ -27,80 +34,110 @@ public class JCliente extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        incluir = new javax.swing.JButton();
-        alterar = new javax.swing.JButton();
-        selecionar = new javax.swing.JButton();
-        excluir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        buIncluir = new javax.swing.JButton();
+        buExcluir = new javax.swing.JButton();
+        Selecionar = new javax.swing.JButton();
+        buAlterar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabPessoa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        incluir.setText("Incluir");
-        incluir.addActionListener(new java.awt.event.ActionListener() {
+        buIncluir.setText("Incluir");
+        buIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                incluirActionPerformed(evt);
+                buIncluirActionPerformed(evt);
             }
         });
 
-        alterar.setText("Alterar");
+        buExcluir.setText("Excluir");
+        buExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buExcluirActionPerformed(evt);
+            }
+        });
 
-        selecionar.setText("Selecionar");
+        Selecionar.setText("Selecionar");
+        Selecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelecionarActionPerformed(evt);
+            }
+        });
 
-        excluir.setText("Excluir");
+        buAlterar.setText("Alterar");
+        buAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buAlterarActionPerformed(evt);
+            }
+        });
 
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabPessoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Telefone", "E-mail", "Logradouro", "Número", "Complemento", "Bairro", "Cidade", "CEP"
+
             }
         ));
-        tabela.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(tabela);
+        jScrollPane2.setViewportView(tabPessoa);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(excluir)
-                    .addComponent(selecionar)
-                    .addComponent(alterar)
-                    .addComponent(incluir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buExcluir)
+                    .addComponent(Selecionar)
+                    .addComponent(buIncluir)
+                    .addComponent(buAlterar))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(incluir)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buIncluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(alterar)
-                        .addGap(18, 18, 18)
-                        .addComponent(selecionar)
-                        .addGap(18, 18, 18)
-                        .addComponent(excluir)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(buExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Selecionar)
+                        .addGap(128, 128, 128))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void incluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_incluirActionPerformed
+    
+    
+    private void buIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buIncluirActionPerformed
+
+  
+    }//GEN-LAST:event_buIncluirActionPerformed
+
+    private void buExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buExcluirActionPerformed
+       
+    }//GEN-LAST:event_buExcluirActionPerformed
+
+    private void SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelecionarActionPerformed
+
+        
+    }//GEN-LAST:event_SelecionarActionPerformed
+
+    private void buAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buAlterarActionPerformed
+
+       
+    }//GEN-LAST:event_buAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,11 +182,11 @@ public class JCliente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alterar;
-    private javax.swing.JButton excluir;
-    private javax.swing.JButton incluir;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton selecionar;
-    private javax.swing.JTable tabela;
+    private javax.swing.JButton Selecionar;
+    private javax.swing.JButton buAlterar;
+    private javax.swing.JButton buExcluir;
+    private javax.swing.JButton buIncluir;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tabPessoa;
     // End of variables declaration//GEN-END:variables
 }

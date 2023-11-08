@@ -4,20 +4,35 @@
  */
 package vendapdv;
 
+import java.sql.Connection;
+import javax.swing.JFrame;
+
 /**
  *
  * @author isabe
  */
 public class JAtualizaCliente extends javax.swing.JDialog {
 
+     private Pessoa clienteAtualizado;
+     boolean janelaFechadaComSucesso;
+
     /**
      * Creates new form JAtualizaCliente
      */
-    public JAtualizaCliente(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
+    public JAtualizaCliente(java.awt.Frame parent, boolean modal, Pessoa clienteExistente) {
+    super(parent, modal);
+    initComponents();
+    this.clienteAtualizado = new Pessoa((Connection) clienteExistente);
+}
+
+    private JAtualizaCliente(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public boolean exibir(Pessoa clienteSelecionado) {
+        this.setVisible(true); // Exibe a janela de atualização
+        return janelaFechadaComSucesso; // Substitua janelaFechadaComSucesso pela lógica adequada
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +45,7 @@ public class JAtualizaCliente extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        edLogradouro = new java.awt.TextField();
+        edRua = new java.awt.TextField();
         jLabel3 = new javax.swing.JLabel();
         edTelefone = new java.awt.TextField();
         buOK = new javax.swing.JButton();
@@ -53,9 +68,9 @@ public class JAtualizaCliente extends javax.swing.JDialog {
 
         jLabel8.setText("Cidade");
 
-        edLogradouro.addActionListener(new java.awt.event.ActionListener() {
+        edRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edLogradouroActionPerformed(evt);
+                edRuaActionPerformed(evt);
             }
         });
 
@@ -127,7 +142,7 @@ public class JAtualizaCliente extends javax.swing.JDialog {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edRua, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(edCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
@@ -177,7 +192,7 @@ public class JAtualizaCliente extends javax.swing.JDialog {
                                 .addComponent(edEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(edLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)))
                             .addComponent(jLabel3))
                         .addGap(22, 22, 22)
@@ -223,59 +238,41 @@ public class JAtualizaCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void edLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edLogradouroActionPerformed
+    private void edRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edRuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edLogradouroActionPerformed
+    }//GEN-LAST:event_edRuaActionPerformed
 
     private void buOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKActionPerformed
 
-        if (operacaoCadastro != OperacaoCadastro.consultar){
-
-            pessoa.atualizarNome(edNome.getText());
-            pessoa.atualizarTelefone(edTelefone.getText());
-            pessoa.atualizarEmail(edEmail.getText());
-            pessoa.atualizarLogradouro(edLogradouro.getText());
-            pessoa.atualizarNumero(edNumero.getText());
-
-
-            pessoa.atualizarCidade(edCidade.getText());
-
-            String estadoSelecionado = (String) edEstado.getSelectedItem();
-            pessoa.atualizarEstado(estadoSelecionado);
-            pessoa.atualizarCep(edCep.getText());
-
-            confirmado = true;
-
-        }
 
         Pessoa pessoa = new Pessoa();
         pessoa.atualizarNome(edNome.getText());
         pessoa.atualizarTelefone(edTelefone.getText());
         pessoa.atualizarEmail(edEmail.getText());
-        pessoa.atualizarLogradouro(edLogradouro.getText());
-        pessoa.atualizarNumero(edNumero.getText());
-        pessoa.atualizarComplemento(edComplemento.getText());
-        pessoa.atualizarBairro(edBairro.getText());
+        pessoa.atualizarRua(edRua.getText());
         pessoa.atualizarCidade(edCidade.getText());
-
         String estadoSelecionado = (String) edEstado.getSelectedItem();
         pessoa.atualizarEstado(estadoSelecionado);
         pessoa.atualizarCep(edCep.getText());
 
-        pessoa.salvar();
+        if (pessoa.atualizarNoBancoDeDados()) {
+                // A atualização no banco de dados foi bem-sucedida
+                // Você pode adicionar um código para exibir uma mensagem de sucesso aqui
+            } else {
+                // A atualização no banco de dados falhou
+                // Você pode adicionar um código para exibir uma mensagem de erro aqui
+            }
 
-        edTelefone.setText("");
-        edTelefone.setText("");
-        edEmail.setText("");
-        edLogradouro.setText("");
-        edNumero.setText("");
-        edComplemento.setText("");
-        edBairro.setText("");
-        edCidade.setText("");
-        edEstado.setSelectedItem("");
-        edCep.setText("");
+            edTelefone.setText("");
+            edTelefone.setText("");
+            edEmail.setText("");
+            edRua.setText("");
+            // Limpe outros campos conforme necessário
 
-        dispose(); // TODO add your handling code here:
+            janelaFechadaComSucesso = true; // Defina isso como true se a atualização for bem-sucedida
+        this.dispose();  // Feche a janela após a atualização
+        
+
     }//GEN-LAST:event_buOKActionPerformed
 
     private void edEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edEmailActionPerformed
@@ -351,8 +348,8 @@ public class JAtualizaCliente extends javax.swing.JDialog {
     private java.awt.TextField edCidade;
     private java.awt.TextField edEmail;
     private javax.swing.JComboBox<String> edEstado;
-    private java.awt.TextField edLogradouro;
     private java.awt.TextField edNome;
+    private java.awt.TextField edRua;
     private java.awt.TextField edTelefone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

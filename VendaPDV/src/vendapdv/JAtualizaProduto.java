@@ -4,6 +4,11 @@
  */
 package vendapdv;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import static vendapdv.DatabaseConnection.obterConexao;
+
 /**
  *
  * @author isabe
@@ -134,20 +139,18 @@ public class JAtualizaProduto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
-
-        jPanel1.getAccessibleContext().setAccessibleName("Cadastro de Produto");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,54 +160,31 @@ public class JAtualizaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_edQuantidadeprodActionPerformed
 
     private void buOKprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKprodActionPerformed
+        
+        Produto produto = new Produto();
+        produto.atualizarNome(edNomeprod.getText());
+        produto.atualizarPreco(Double.parseDouble(edPrecoprod.getText())); // Certifique-se de tratar erros de conversão
+        produto.atualizarQuantidade(Integer.parseInt(edQuantidadeprod.getText())); // Certifique-se de tratar erros de conversão
+        Connection connection = obterConexao();
+        
+        if (connection != null) {
+            // Tente atualizar o produto no banco de dados
+            boolean atualizacaoBemSucedida = produto.atualizarNoBancoDeDados(connection);
 
-        if (operacaoCadastro != OperacaoCadastro.consultar){
-
-            pessoa.atualizarNome(edNomeprod.getText());
-            pessoa.atualizarTelefone(edTelefone.getText());
-            pessoa.atualizarEmail(edPrecoprod.getText());
-            pessoa.atualizarLogradouro(edQuantidadeprod.getText());
-            pessoa.atualizarNumero(edNumero.getText());
-            pessoa.atualizarComplemento(edComplemento.getText());
-            pessoa.atualizarBairro(edBairro.getText());
-            pessoa.atualizarCidade(edCidade.getText());
-
-            String estadoSelecionado = (String) edEstado.getSelectedItem();
-            pessoa.atualizarEstado(estadoSelecionado);
-            pessoa.atualizarCep(edCep.getText());
-
-            confirmado = true;
-
-        }
-
-        Pessoa pessoa = new Pessoa();
-        pessoa.atualizarNome(edNomeprod.getText());
-        pessoa.atualizarTelefone(edTelefone.getText());
-        pessoa.atualizarEmail(edPrecoprod.getText());
-        pessoa.atualizarLogradouro(edQuantidadeprod.getText());
-        pessoa.atualizarNumero(edNumero.getText());
-        pessoa.atualizarComplemento(edComplemento.getText());
-        pessoa.atualizarBairro(edBairro.getText());
-        pessoa.atualizarCidade(edCidade.getText());
-
-        String estadoSelecionado = (String) edEstado.getSelectedItem();
-        pessoa.atualizarEstado(estadoSelecionado);
-        pessoa.atualizarCep(edCep.getText());
-
-        pessoa.salvar();
-
-        edTelefone.setText("");
-        edTelefone.setText("");
-        edPrecoprod.setText("");
-        edQuantidadeprod.setText("");
-        edNumero.setText("");
-        edComplemento.setText("");
-        edBairro.setText("");
-        edCidade.setText("");
-        edEstado.setSelectedItem("");
-        edCep.setText("");
-
-        dispose(); // TODO add your handling code here:
+            if (atualizacaoBemSucedida) {
+                // A atualização foi bem-sucedida
+                System.out.println("Produto atualizado com sucesso!");
+            } else {
+                // A atualização falhou
+                System.out.println("Falha ao atualizar o produto no banco de dados.");
+            }
+        // Feche a conexão após a atualização
+        fecharConexao(connection);
+    }
+    
+    // Feche o diálogo
+    dispose();
+   
     }//GEN-LAST:event_buOKprodActionPerformed
 
     private void edPrecoprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPrecoprodActionPerformed
@@ -272,4 +252,8 @@ public class JAtualizaProduto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void fecharConexao(Connection connection) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
