@@ -5,40 +5,40 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Produto {
-    private String nome;
+    private String nomeProduto;
     private double preco;
-    private int quantidade;
+    private int quantidadeEstoque;
 
-    public String obterNome() {
-        return nome;
+    public String obterNomeProduto() {
+        return nomeProduto;
     }
 
     public double obterPreco() {
         return preco;
     }
 
-    public int obterQuantidade() {
-        return quantidade;
+    public int obterQuantidadeEstoque() {
+        return quantidadeEstoque;
     }
 
-    public void atualizarNome(String nome) {
-        this.nome = nome;
+    public void atualizarNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public void atualizarPreco(double preco) {
         this.preco = preco;
     }
 
-    public void atualizarQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void atualizarQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 
     public void salvar(Connection connection) {
-        String sql = "INSERT INTO produtos (nome, preco, quantidade) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO produto (nomeProduto, preco, quantidadeEstoque) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, this.nome);
+            preparedStatement.setString(1, this.nomeProduto);
             preparedStatement.setDouble(2, this.preco);
-            preparedStatement.setInt(3, this.quantidade);
+            preparedStatement.setInt(3, this.quantidadeEstoque);
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
@@ -60,15 +60,15 @@ public class Produto {
 
         try {
             // Construir a consulta SQL para atualização (substitua "sua_tabela" e campos apropriados)
-            String sql = "UPDATE sua_tabela SET nome = ?, preco = ?, quantidade = ? WHERE id = ?"; // Substitua "id" pelo campo de identificação do produto
+            String sql = "UPDATE produto SET nomeProduto = ?, preco = ?, quantidadeEstoque = ? WHERE id = ?"; // Substitua "id" pelo campo de identificação do produto
 
             // Preparar a declaração SQL
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             // Preencher os valores dos parâmetros com os dados do produto
-            preparedStatement.setString(1, this.nome);
+            preparedStatement.setString(1, this.nomeProduto);
             preparedStatement.setDouble(2, this.preco);
-            preparedStatement.setInt(3, this.quantidade);
+            preparedStatement.setInt(3, this.quantidadeEstoque);
             // Substitua pelo campo de identificação do produto
            
 

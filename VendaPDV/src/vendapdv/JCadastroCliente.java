@@ -12,45 +12,22 @@ import java.sql.SQLException;
  */
 public class JCadastroCliente extends javax.swing.JDialog {
 
-    private JOperacaoCadastro joperacaoCadastro;
+    static boolean executar(JOperacaoCadastro jOperacaoCadastro, Pessoa pessoa) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private Pessoa pessoa;
     private boolean confirmado;
-    
-    public static boolean executar (JOperacaoCadastro joperacaoCadastro,Pessoa pessoa){
 
-    JCadastroCliente jcadastroCliente = new JCadastroCliente(null, joperacaoCadastro, pessoa);
-    jcadastroCliente.setLocationRelativeTo(null);
-    jcadastroCliente.setVisible(true);
-    return jcadastroCliente.operacaoConfirmada();//146
-}
-    
-
-    public JCadastroCliente  (java.awt.Frame parent,JOperacaoCadastro joperacaoCadastro, Pessoa pessoa) {
-super(parent, true );//Abre como modal
-
-        confirmado = false;
-        this.joperacaoCadastro = joperacaoCadastro;
-        this.pessoa = pessoa;
+    public JCadastroCliente(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
-        
-        if (joperacaoCadastro == JOperacaoCadastro.incluir ){
-        edNome.setText(pessoa.obterNome());
-        edTelefone.setText(pessoa.obterTelefone());
-        edEmail.setText(pessoa.obterEmail());
-        edRua.setText(pessoa.obterRua());
-        edCidade.setText(pessoa.obterCidade());
-        edEstado.setSelectedItem(pessoa.obterEstado());
-        edCep.setText(pessoa.obterCep());
-        }
-        
-     
-        }
+    }
 
-    public boolean operacaoConfirmada(){
-return confirmado;
-}
-    
-    
+    public boolean operacaoConfirmada() {
+        return confirmado;
+    }
+  
     
     
 
@@ -62,9 +39,7 @@ return confirmado;
         initComponents();
     }
 
-    private JCadastroCliente(Object object, JOperacaoCadastro joperacaoCadastro, Pessoa pessoa) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -280,28 +255,18 @@ return confirmado;
         pessoa.atualizarTelefone(edTelefone.getText());
         pessoa.atualizarEmail(edEmail.getText());
         pessoa.atualizarRua(edRua.getText());
-        
         pessoa.atualizarCidade(edCidade.getText());
-
 
         String estadoSelecionado = (String) edEstado.getSelectedItem();
         pessoa.atualizarEstado(estadoSelecionado);
         pessoa.atualizarCep(edCep.getText());
 
+        // Salva os dados no banco de dados.
         pessoa.salvar();
-        
 
-        edTelefone.setText("");
-        edTelefone.setText("");
-        edEmail.setText("");
-        edRua.setText("");
-        edCidade.setText("");
-        edEstado.setSelectedItem("");
-        edCep.setText("");
-        
-        
-        
-        dispose(); // TODO add yo
+        // Define a operação como confirmada e fecha a janela de cadastro.
+        confirmado = true;
+        dispose();
     }//GEN-LAST:event_buOKActionPerformed
 
     private void edEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edEmailActionPerformed

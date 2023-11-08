@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/VendaPDV.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JAtualizaProduto.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JAtualizaCliente.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JCadastroCliente.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JProdutos.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JCadastroProduto.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JCliente.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JVenda.java</file>
-            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJava/VendaPDV/src/vendapdv/JPrincipal.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JAtualizaProduto.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JCadastroProduto.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/DatabaseConnection.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JPrincipal.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JCadastroCliente.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JCliente.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JOperacaoCadastro.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JModeloTabelaPessoa.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/JAtualizaCliente.java</file>
+            <file>file:/C:/Users/isabe/OneDrive/Documentos/GitHub/VendaPDV_TrabalhoJavaNetbeans/VendaPDV/src/vendapdv/VendaPDV.java</file>
         </group>
     </open-files>
 </project-private>

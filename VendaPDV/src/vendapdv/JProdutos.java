@@ -4,18 +4,24 @@
  */
 package vendapdv;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author isabe
  */
 public class JProdutos extends javax.swing.JDialog {
 
+    private TabelaProduto modeloProduto;
     /**
      * Creates new form JProdutos
      */
     public JProdutos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        modeloProduto = new TabelaProduto(new ArrayList<>());
+        tabela.setModel(modeloProduto);
+
     }
 
     /**
@@ -44,10 +50,25 @@ public class JProdutos extends javax.swing.JDialog {
         });
 
         alterar.setText("Alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarActionPerformed(evt);
+            }
+        });
 
         selecionar.setText("Selecionar");
+        selecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarActionPerformed(evt);
+            }
+        });
 
         excluir.setText("Excluir");
+        excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirActionPerformed(evt);
+            }
+        });
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,10 +118,46 @@ public class JProdutos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void abrirJanelaAtualizacaoProduto(Produto produto) {
+    JAtualizaProduto dialog = new JAtualizaProduto(this, true);
+    dialog.setProduto(produto);
+    dialog.setVisible(true);
+
+    if (dialog.isAtualizado()) {
+        // Atualize o modelo da tabela ou faça qualquer outra ação necessária após a atualização.
+        modeloProduto.fireTableDataChanged(); // Atualize a tabela, se necessário.
+    }
+}
 
     private void incluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incluirActionPerformed
-        // TODO add your handling code here:
+        Produto produto = new Produto();
+        if (JCadastroProduto.executar(JOperacaoCadastro.incluir, produto)) {
+        modeloProduto.incluirProduto(produto);
+    }// TODO add your handling code here:
     }//GEN-LAST:event_incluirActionPerformed
+
+    private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
+        int indice = tabela.getSelectedRow();
+        if (indice >= 0) {
+            modeloProduto.excluirProduto(indice);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_excluirActionPerformed
+
+    private void selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarActionPerformed
+    int indice = tabela.getSelectedRow();
+    if (indice >= 0) {
+        Produto produto = modeloProduto.obterProduto(indice);
+        JAtualizaProduto.executar(JOperacaoCadastro.consultar, produto);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_selecionarActionPerformed
+
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
+        int indice = tabela.getSelectedRow();
+    if (indice >= 0) {
+        Produto produto = modeloProduto.obterProduto(indice);
+        abrirJanelaAtualizacaoProduto(produto);
+    }   // TODO add your handling code here:
+    }//GEN-LAST:event_alterarActionPerformed
 
     /**
      * @param args the command line arguments

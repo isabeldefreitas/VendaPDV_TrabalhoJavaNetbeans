@@ -15,6 +15,14 @@ import static vendapdv.DatabaseConnection.obterConexao;
  */
 public class JAtualizaProduto extends javax.swing.JDialog {
 
+    static void executar(JOperacaoCadastro jOperacaoCadastro, Produto produto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+    private Produto produto;
+
+
     /**
      * Creates new form JAtualizaProduto
      */
@@ -23,6 +31,16 @@ public class JAtualizaProduto extends javax.swing.JDialog {
         initComponents();
     }
 
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+        carregarDadosProduto();
+    }
+
+    private void carregarDadosProduto() {
+        edNomeprod.setText(produto.obterNomeProduto());
+        edPrecoprod.setText(String.valueOf(produto.obterPreco()));
+        edQuantidadeprod.setText(String.valueOf(produto.obterQuantidadeEstoque()));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,9 +180,9 @@ public class JAtualizaProduto extends javax.swing.JDialog {
     private void buOKprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKprodActionPerformed
         
         Produto produto = new Produto();
-        produto.atualizarNome(edNomeprod.getText());
+        produto.atualizarNomeProduto(edNomeprod.getText());
         produto.atualizarPreco(Double.parseDouble(edPrecoprod.getText())); // Certifique-se de tratar erros de conversão
-        produto.atualizarQuantidade(Integer.parseInt(edQuantidadeprod.getText())); // Certifique-se de tratar erros de conversão
+        produto.atualizarQuantidadeEstoque(Integer.parseInt(edQuantidadeprod.getText())); // Certifique-se de tratar erros de conversão
         Connection connection = obterConexao();
         
         if (connection != null) {
@@ -256,4 +274,10 @@ public class JAtualizaProduto extends javax.swing.JDialog {
     private void fecharConexao(Connection connection) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    boolean isAtualizado() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
 }

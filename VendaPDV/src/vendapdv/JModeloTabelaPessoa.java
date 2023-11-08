@@ -30,9 +30,13 @@ private static final int COLUNA_CEP = 6;
 private String[] colunas = new String[]{"Nome","Telefone","Email","Logradouro","Numero","Complemento","Bairro","Cidade","Estado","Cep"};
 private List<Pessoa> pessoas;
 
-public JModeloTabelaPessoa(ArrayList<Object> arrayList) {
-
+public JModeloTabelaPessoa() {
+    this.pessoas = new ArrayList<Pessoa>(); // Inicialize a lista de pessoas vazia
 }
+
+    JModeloTabelaPessoa(ArrayList<Object> arrayList) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
 @Override
@@ -136,19 +140,17 @@ public void excluirPessoa(int indice) {
     }
 
 public void atualizarDadosDoBanco() {
-        try {
-            // Substitua o seguinte trecho com a chamada à sua classe DatabaseConnection
-            DatabaseConnection conexaoBanco = new DatabaseConnection();
-            List<Pessoa> pessoasDoBanco = conexaoBanco.buscarPessoas(); // Implemente esse método na sua classe de conexão
+    try {
+        DatabaseConnection conexaoBanco = new DatabaseConnection();
+        List<Pessoa> pessoasDoBanco = conexaoBanco.buscarPessoas();
 
-            this.pessoas.clear(); // Limpa a lista existente
-            this.pessoas.addAll(pessoasDoBanco); // Adiciona as novas pessoas do banco à lista
-            fireTableDataChanged(); // Notifica a tabela sobre a mudança de dados
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar dados do banco de dados: " + ex.getMessage());
-        }
+        this.pessoas.clear();
+        this.pessoas.addAll(pessoasDoBanco);
+        fireTableDataChanged();
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao buscar dados do banco de dados: " + ex.getMessage());
     }
-
+}
 
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas.clear(); // Limpa a lista existente

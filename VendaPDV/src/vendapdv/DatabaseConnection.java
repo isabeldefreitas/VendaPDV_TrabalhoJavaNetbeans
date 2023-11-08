@@ -34,7 +34,7 @@ public class DatabaseConnection {
             connection = obterConexao();
 
             if (connection != null) {
-                String query = "INSERT INTO tabela_pessoas (nome, telefone, email, rua, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO cliente (nome, telefone, email, rua, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 stmt = connection.prepareStatement(query);
                 stmt.setString(1, pessoa.obterNome());
                 stmt.setString(2, pessoa.obterTelefone());
@@ -68,7 +68,7 @@ public class DatabaseConnection {
     }
     
     public static boolean salvarProduto(String nome, double preco, int quantidade) {
-    String sql = "INSERT INTO produtos (nome, preco, quantidade) VALUES (?, ?, ?)";
+    String sql = "INSERT INTO produto (nomeProduto, preco, quantidadeEstoque) VALUES (?, ?, ?)";
     try (Connection connection = connect();
          PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
         preparedStatement.setString(1, nome);

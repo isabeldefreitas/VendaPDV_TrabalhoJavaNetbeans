@@ -15,20 +15,20 @@ import java.sql.DriverManager;
  */
   public class Pessoa {
       
-        private String nome;
+        private String nomeCliente;
         private String telefone;
         private String email;
-        private String rua;
-        private String cidade;
         private String estado;
+        private String cidade;
         private String cep;
+        private String rua;
 
     Pessoa() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
         public String obterNome(){
-        return nome;
+        return nomeCliente;
         }
         public String obterTelefone(){
         return telefone;
@@ -52,7 +52,7 @@ import java.sql.DriverManager;
         return cep;
         }
         public void atualizarNome(String nome){
-        this.nome = nome;
+        this.nomeCliente = nome;
         }
 
         public void atualizarTelefone(String telefone){
@@ -86,9 +86,9 @@ import java.sql.DriverManager;
         }
         
         public void salvar() {
-            String sql = "INSERT INTO pessoas (nome, telefone, email, rua, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cliente (nomeCliente, telefone, email, rua, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, this.nome);
+                preparedStatement.setString(1, this.nomeCliente);
                 preparedStatement.setString(2, this.telefone);
                 preparedStatement.setString(3, this.email);
                 preparedStatement.setString(4, this.rua);
@@ -115,13 +115,13 @@ import java.sql.DriverManager;
 
         try (Connection conexao = DriverManager.getConnection(url, usuario, senha)) {
             // Construir a consulta SQL para atualização (substitua "sua_tabela" e campos apropriados)
-            String sql = "UPDATE cliente SET nome = ?, telefone = ?, email = ?, rua= ?, cidade= ?, estado= ?, cep= ?";
+            String sql = "UPDATE cliente SET nomeCliente = ?, telefone = ?, email = ?, rua= ?, cidade= ?, estado= ?, cep= ?";
 
             // Preparar a declaração SQL
             PreparedStatement preparedStatement = conexao.prepareStatement(sql);
 
             // Preencher os valores dos parâmetros com os dados da pessoa
-             preparedStatement.setString(1, this.nome);
+             preparedStatement.setString(1, this.nomeCliente);
                 preparedStatement.setString(2, this.telefone);
                 preparedStatement.setString(3, this.email);
                 preparedStatement.setString(4, this.rua);

@@ -12,6 +12,11 @@ import java.sql.SQLException;
  */
 public class JCadastroProduto extends javax.swing.JDialog {
 
+    static boolean executar(JOperacaoCadastro jOperacaoCadastro, Produto produto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
     /**
      * Creates new form JCadastroProduto
      */
@@ -157,46 +162,45 @@ public class JCadastroProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_edQuantidadeprodActionPerformed
 
     private void buOKprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buOKprodActionPerformed
-                                           
-    String nome = edNomeprod.getText();
-    String precoStr = edPrecoprod.getText();
-    String quantidadeStr = edQuantidadeprod.getText();
+   // Obtém os dados do formulário
+String nome = edNomeprod.getText();
+String precoStr = edPrecoprod.getText();
+String quantidadeStr = edQuantidadeprod.getText();
 
-    try {
-        double preco = Double.parseDouble(precoStr);
-        int quantidade = Integer.parseInt(quantidadeStr);
+try {
+    // Converte strings em números
+    double preco = Double.parseDouble(precoStr);
+    int quantidade = Integer.parseInt(quantidadeStr);
 
-        Produto produto = new Produto();
-        produto.atualizarNome(nome);
-        produto.atualizarPreco(preco);
-        produto.atualizarQuantidade(quantidade);
+    // Crie uma instância de Produto e atualize seus atributos
+    Produto produto = new Produto();
+    produto.atualizarNomeProduto(nome);
+    produto.atualizarPreco(preco);
+    produto.atualizarQuantidadeEstoque(quantidade);
 
         // Certifique-se de ter uma conexão válida com o banco de dados
-        Connection connection = DatabaseConnection.obterConexao(); 
+    Connection connection = DatabaseConnection.obterConexao();
 
-        if (connection != null) {
-            produto.salvar(connection);
-            // Feche a conexão com o banco de dados após o uso
-            connection.close();
-            System.out.println("Produto salvo com sucesso!");
-        } else {
-            System.err.println("Falha ao obter conexão com o banco de dados.");
-        }
+    if (connection != null) {
+        // Chame um método de salvar em sua classe Produto
+        produto.salvar(connection);
+        // Feche a conexão com o banco de dados após o uso
+        connection.close();
+        System.out.println("Produto salvo com sucesso!");
+    } else {
+        System.err.println("Falha ao obter conexão com o banco de dados.");
+    }
 
-        // Limpe os campos de entrada após salvar
+    // Limpe os campos de entrada após salvar
         edNomeprod.setText("");
         edPrecoprod.setText("");
         edQuantidadeprod.setText("");
-
-        dispose(); // Feche a janela de cadastro de produtos
     } catch (NumberFormatException e) {
         System.err.println("Erro ao converter preço ou quantidade para números.");
     } catch (SQLException e) {
         System.err.println("Erro ao salvar dados do produto: " + e.getMessage());
     }
-     
-
-        dispose(); // TODO add your handling code here:
+     dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_buOKprodActionPerformed
 
     private void edPrecoprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPrecoprodActionPerformed

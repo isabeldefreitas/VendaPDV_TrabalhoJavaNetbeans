@@ -154,7 +154,7 @@ public class JCliente extends javax.swing.JDialog {
         int indice = tabPessoa.getSelectedRow();
         if (indice >= 0){
         Pessoa pessoa = modeloPessoa.obterPessoa(indice);
-        JCadastroCliente.executar(JOperacaoCadastro.consultar, pessoa);
+        JAtualizaCliente.executar(JOperacaoCadastro.consultar, pessoa);
         }
     }//GEN-LAST:event_SelecionarActionPerformed
 
